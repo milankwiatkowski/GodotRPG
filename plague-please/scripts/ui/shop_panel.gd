@@ -75,7 +75,10 @@ func _build_ingredient_row(ingredient: IngredientData) -> Control:
 		var icon_rect := TextureRect.new()
 		icon_rect.texture = ingredient.icon
 		icon_rect.custom_minimum_size = Vector2(16, 16)
-		icon_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+		# IGNORE_SIZE, not FIT_WIDTH_PROPORTIONAL - see brew_panel.gd's
+		# _build_row() for why (ScrollContainer + FIT_WIDTH_PROPORTIONAL can
+		# let a texture's native size override custom_minimum_size).
+		icon_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		row.add_child(icon_rect)
 

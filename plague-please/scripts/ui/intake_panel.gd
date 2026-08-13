@@ -163,8 +163,7 @@ func _on_admit_pressed() -> void:
 		# how severe their disease is. Walks toward Treatment instead of
 		# back out the way they came.
 		_case.death_timer = _case.true_disease.death_time_seconds()
-		RoomState.push("TreatmentRoom", _case)
-		_dismiss_toward_treatment(false)
+		_dismiss_toward_treatment(false, true)
 	else:
 		# Healthy and admitted: correct, nothing further to do.
 		RunManager.resolve_case(_case, &"admit")
@@ -182,12 +181,22 @@ func _on_reject_pressed() -> void:
 ## instead of back out the way they came. start_hunt_on_exit: true only for
 ## a wrongly-admitted doppelganger - HuntManager.start_hunt() fires once
 ## Patient.gone confirms they've actually arrived, not the instant the
-## verdict's given.
-func _dismiss_toward_treatment(start_hunt_on_exit: bool) -> void:
+## verdict's given. push_case_on_exit: true for a genuinely sick patient -
+## RoomState.push() (which lets TreatmentQueue spawn the handoff node and
+## start it walking to a slot) is likewise held until Patient.gone, not
+## fired the instant Admit is clicked. Without this the Treatment-side
+## node could spawn and finish its own short walk to a slot *before* this
+## Intake-side one even reaches the corridor - reads as if they'd
+## teleported to their slot the moment they crossed into the corridor,
+## since the handoff node was already sitting there waiting.
+func _dismiss_toward_treatment(start_hunt_on_exit: bool, push_case_on_exit: bool = false) -> void:
 	if _patient and is_instance_valid(_patient):
 		if start_hunt_on_exit:
 			var doppel_case := _case
 			_patient.gone.connect(func(): HuntManager.start_hunt(doppel_case), CONNECT_ONE_SHOT)
+		if push_case_on_exit:
+			var sick_case := _case
+			_patient.gone.connect(func(): RoomState.push("TreatmentRoom", sick_case), CONNECT_ONE_SHOT)
 		_patient.dismiss(TREATMENT_BOUND_EXIT, INTAKE_TO_TREATMENT_PATH)
 	panel.visible = false
 	_patient = null

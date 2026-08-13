@@ -21,8 +21,9 @@ shape = SubResource("CircleShape2D_1")
 
 [node name="PromptLabel" type="Label" parent="." unique_id=1959131170]
 offset_left = -20.0
-offset_top = -114.0
+offset_top = -34.0
 offset_right = 20.0
-offset_bottom = -98.0
+offset_bottom = -18.0
+theme_override_font_sizes/font_size = 7
 text = "Talk (E)"
 horizontal_alignment = 1

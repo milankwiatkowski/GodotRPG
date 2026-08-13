@@ -19,6 +19,10 @@ func _ready() -> void:
 	close_button.pressed.connect(close)
 	add_to_group("brew_ui")
 	add_to_group("modal_ui")
+	# SupplyOrders delivers in the background regardless of scene/panel
+	# state - refresh live if a delivery lands while this is already open,
+	# instead of only ever reflecting stock as of the last open().
+	EventBus.supplies_changed.connect(func(_id, _amount): if is_open(): _rebuild_list())
 
 
 func _input(event: InputEvent) -> void:
@@ -65,7 +69,13 @@ func _build_row(recipe: PotionRecipeData) -> Control:
 		var icon_rect := TextureRect.new()
 		icon_rect.texture = recipe.icon
 		icon_rect.custom_minimum_size = Vector2(16, 16)
-		icon_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+		# IGNORE_SIZE, not FIT_WIDTH_PROPORTIONAL - inside a ScrollContainer
+		# (unbounded width, since it scrolls) FIT_WIDTH_PROPORTIONAL can let
+		# the very first row's icon fall back to its texture's native pixel
+		# size instead of custom_minimum_size, which then drags the whole
+		# list (and the panel around it) wide open. IGNORE_SIZE never lets
+		# the texture's own size leak into the minimum-size calculation.
+		icon_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		row.add_child(icon_rect)
 
@@ -89,10 +99,16 @@ func _build_row(recipe: PotionRecipeData) -> Control:
 	return row
 
 
+## Shows what's actually in stock next to what's needed - without this an
+## ingredient batch that just got delivered by SupplyOrders is invisible
+## here, no way to tell it actually arrived versus never having been
+## ordered at all (ShopPanel already shows stock per-ingredient in the
+## Supply Room; the Lab needs the same confirmation for the same numbers).
 func _ingredients_text(recipe: PotionRecipeData) -> String:
 	var parts: Array[String] = []
 	for slot in recipe.ingredients:
-		parts.append("%dx %s" % [slot.quantity, slot.ingredient.name])
+		var have := InventoryManager.get_ingredient_count(slot.ingredient.id)
+		parts.append("%dx %s (have %d)" % [slot.quantity, slot.ingredient.name, have])
 	return ", ".join(parts)
 
 

@@ -348,15 +348,24 @@ from the ward.
       systems").
     - **Reject** always resolves immediately, same as before.
 - **`scripts/ui/treatment_panel.gd`** (`TreatmentPanel`) - shows the
-  admitted patient's disease and a single **Treat**, which consumes a
-  matching potion via `InventoryManager.consume_potion()` and *then* calls
-  `RunManager.resolve_case(case, &"admit")` - this is where the
-  reputation/gold reward for that patient actually lands. No potion in
-  stock → fails with feedback, panel stays open. **No Reject here** -
-  they're already admitted, not up for a second triage call; Close/Escape
-  leaves them waiting until the player comes back with the cure (a
-  "discharge without curing" escape valve doesn't exist yet - see "Not yet
-  built").
+  admitted patient's condition and, since the cure isn't just handed to the
+  player (see "The Codex"), a **Try** button per potion currently in
+  `InventoryManager` stock - not just the correct one, since not knowing
+  which is right is the point. Picking the right one consumes it via
+  `InventoryManager.consume_potion()`, calls
+  `RunManager.resolve_case(case, &"admit")` (where the reputation/gold
+  reward actually lands) and `Codex.record_cure_known()`. Picking a wrong
+  one still consumes it - wasted, no other penalty - and shows that
+  recipe's own `PotionRecipeData.side_effects_on_misuse` line as feedback,
+  patient still waiting, death timer still running. Once
+  `Codex.is_cure_known()` for a disease, the body text names the cure
+  directly (a player who's cured something before shouldn't have to
+  re-guess), though the **Try**-list mechanic doesn't change - it's just a
+  hint above it now. Nothing in stock → the list says so instead of a
+  disabled button. **No Reject here** - they're already admitted, not up
+  for a second triage call; Close/Escape leaves them waiting until the
+  player comes back with something to try (a "discharge without curing"
+  escape valve doesn't exist yet - see "Not yet built").
 - Both panels have a corner **X** button and Escape (`ui_cancel`) to back
   out *without* deciding anything - the patient just keeps waiting. This
   was a real bug fixed earlier in development: patient-facing panels used
@@ -597,7 +606,7 @@ learns what the player has actually caused to happen this run:
 | Recorded when | Call | Effect |
 |---|---|---|
 | **Inspect Closely** on a sick patient | `IntakePanel._on_inspect_pressed()` → `Codex.record_disease_seen(disease.id)` | That disease's symptom list is now readable in the Codex. |
-| **Treat** actually cures someone | `TreatmentPanel._on_treat_pressed()` → `Codex.record_cure_known(disease.id)` | That disease's cure recipe is now named in the Codex - knowing the symptoms doesn't tell you the cure; brewing one that works does. |
+| Trying the *right* potion in Treatment | `TreatmentPanel._on_try_pressed()` → `Codex.record_cure_known(disease.id)` | That disease's cure recipe is now named in the Codex and in Treatment's own body text going forward - knowing the symptoms doesn't tell you the cure; a **Try** that actually works does. A wrong **Try** just wastes that potion. |
 | **Inspect Closely** on a doppelganger | `IntakePanel._on_inspect_pressed()` → `Codex.record_doppelganger_seen(profile.id)` | That doppelganger's disguise/tells are now readable. |
 | **Catching** a loose doppelganger | `HuntManager._resolve(true)` → `Codex.record_doppelganger_seen(profile.id)` | Same, even if it was never Inspected at Intake (a wrongly-Admitted one skips straight to the hunt). |
 
@@ -663,8 +672,8 @@ philosophy as `HuntManager`'s countdown:
   `doppel_rejected`/`doppel_admitted` counts, plus `gold_earned`/
   `gold_spent`/`gold_history` (an array of `{"hour","gold"}` snapshots,
   one per `add_gold()`/`spend_gold()` call). Incremented at the exact
-  narrative moment each thing happens - `TreatmentPanel._on_treat_pressed()`
-  for `cured`, `Patient.die()` for `died` (covers *both* causes of death
+  narrative moment each thing happens - `TreatmentPanel._on_try_pressed()`
+  (on a correct **Try**) for `cured`, `Patient.die()` for `died` (covers *both* causes of death
   uniformly), `_apply_verdict_consequences()` for the doppelganger
   counts - not inferred after the fact from generic verdict data.
 - **`DayReportScreen`** (`scenes/ui/DayReportScreen.tscn` +
