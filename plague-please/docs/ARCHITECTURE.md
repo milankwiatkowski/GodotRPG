@@ -140,6 +140,17 @@ survives the merge even though it's all one node tree.
   gap-list bookkeeping - see the old per-room approach that predates
   this), and what lets the two corridors cross each other at the center
   without a wall-vs-floor conflict at the intersection.
+- **Every corridor doorway is 6 tiles (96px) wide**, not the original 2
+  (32px). The Player's `CircleShape2D` collision is 24px across, so a
+  2-tile gap only left an ~8px dead-center window to walk straight
+  through - anyone approaching from elsewhere in a much wider room would
+  just run into the wall next to the gap, reading exactly like an
+  invisible wall. Widened after the fact rather than at generation time -
+  `Floor_Corridors` gets floor added on the extra columns/rows on each
+  side, and any wall tile a room's own layer had painted on those same
+  cells gets erased. If a corridor's width ever needs revisiting again,
+  do the same: add floor to `Floor_Corridors` on the new cells, then erase
+  (not repaint) any wall tile the affected room layers have there.
 - **`patient_queue.gd`'s `zone_name`** ("IntakeRoom"/"TreatmentRoom") is
   what keys `RoomState`'s queues now - no longer inferred from
   `get_tree().current_scene.name`, since every zone lives in the same
@@ -150,7 +161,7 @@ survives the merge even though it's all one node tree.
   through `INTAKE_TO_TREATMENT_PATH`, not a single straight line: `Patient`
   has no real pathfinding, and a direct line from most Intake queue slots
   to Treatment cuts diagonally through Intake's own wall instead of
-  through the narrow (2-tile) doorway gap in it. The route is two legs -
+  through the doorway gap in it. The route is two legs -
   `INTAKE_CORRIDOR_GAP` (lines the patient up with that doorway first) then
   `TREATMENT_BOUND_EXIT` (straight down the corridor from there) - via
   `Patient.dismiss()`'s optional `path` param, which walks each waypoint in

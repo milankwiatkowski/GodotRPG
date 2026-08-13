@@ -39,7 +39,7 @@ const INTAKE_CORRIDOR_GAP := Vector2(0, -184)
 ## walk a single straight line to TREATMENT_BOUND_EXIT - from most queue
 ## slots that line cuts diagonally through Intake's own wall instead of
 ## through the corridor doorway. Walking INTAKE_CORRIDOR_GAP first lines
-## them up with the (narrow, x=[-16,16]) gap in the wall before heading
+## them up with the (x=[-48,48]) gap in the wall before heading
 ## south, then straight down the corridor to TREATMENT_BOUND_EXIT (passed
 ## separately as dismiss()'s exit_target - this is just the intermediate
 ## leg(s) before it) - see Patient.dismiss()'s path parameter.
