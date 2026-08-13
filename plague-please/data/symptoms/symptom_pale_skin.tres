@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/symptom_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"pale_skin"
+display_name = "Pale, Clammy Skin"
+description = "The patient's skin is unusually pale and cold to the touch."
+is_red_herring = false
+tags = PackedStringArray("visual")

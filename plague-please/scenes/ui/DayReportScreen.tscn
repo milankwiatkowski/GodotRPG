@@ -1,0 +1,150 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/day_report_screen.gd" id="1_82w2l"]
+[ext_resource type="Texture2D" path="res://assets/Free_UI_Asset_Pack/6/1.png" id="2_5f48e"]
+[ext_resource type="Script" path="res://scripts/ui/gold_chart.gd" id="3_qtclu"]
+[ext_resource type="Texture2D" path="res://assets/Free_UI_Asset_Pack/1/1.png" id="4_5if3q"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wkwnd"]
+texture = ExtResource("2_5f48e")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xcr7j"]
+texture = ExtResource("4_5if3q")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[node name="DayReportScreen" type="Control" unique_id=484752682]
+layout_mode = 3
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_82w2l")
+
+[node name="Background" type="ColorRect" parent="." unique_id=517024561]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.1, 0.09, 0.08, 1)
+
+[node name="Panel" type="Panel" parent="." unique_id=181877372]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -90.0
+offset_right = 140.0
+offset_bottom = 90.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_wkwnd")
+
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=1460122470]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = -10.0
+offset_bottom = -8.0
+theme_override_constants/separation = 6
+
+[node name="TitleLabel" type="Label" parent="Panel/VBox" unique_id=1649940903]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.32, 0.2, 0.1, 1)
+text = "Day 1 Report"
+horizontal_alignment = 1
+
+[node name="TabContainer" type="TabContainer" parent="Panel/VBox" unique_id=341153057]
+custom_minimum_size = Vector2(0, 130)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_selected_color = Color(0.32, 0.2, 0.1, 1)
+theme_override_colors/font_unselected_color = Color(0.5, 0.42, 0.34, 1)
+theme_override_font_sizes/font_size = 8
+current_tab = 0
+
+[node name="Patients" type="VBoxContainer" parent="Panel/VBox/TabContainer" unique_id=813818588]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+metadata/_tab_index = 0
+
+[node name="CuredLabel" type="Label" parent="Panel/VBox/TabContainer/Patients" unique_id=661742014]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(0.32, 0.2, 0.1, 1)
+text = "Patients Cured: 0"
+horizontal_alignment = 1
+
+[node name="DiedLabel" type="Label" parent="Panel/VBox/TabContainer/Patients" unique_id=1471664199]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(0.32, 0.2, 0.1, 1)
+text = "Patients Died: 0"
+horizontal_alignment = 1
+
+[node name="DoppelRejectedLabel" type="Label" parent="Panel/VBox/TabContainer/Patients" unique_id=237021137]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(0.32, 0.2, 0.1, 1)
+text = "Dopplegangers Rejected: 0"
+horizontal_alignment = 1
+
+[node name="DoppelAdmittedLabel" type="Label" parent="Panel/VBox/TabContainer/Patients" unique_id=1966533888]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(0.32, 0.2, 0.1, 1)
+text = "Dopplegangers Let In: 0"
+horizontal_alignment = 1
+
+[node name="Finances" type="VBoxContainer" parent="Panel/VBox/TabContainer" unique_id=918195716]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 4
+metadata/_tab_index = 1
+
+[node name="EarnedLabel" type="Label" parent="Panel/VBox/TabContainer/Finances" unique_id=697619153]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(0.2, 0.4, 0.15, 1)
+text = "Gold Earned: 0"
+horizontal_alignment = 1
+
+[node name="SpentLabel" type="Label" parent="Panel/VBox/TabContainer/Finances" unique_id=2144223291]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(0.5, 0.15, 0.1, 1)
+text = "Gold Spent: 0"
+horizontal_alignment = 1
+
+[node name="NetLabel" type="Label" parent="Panel/VBox/TabContainer/Finances" unique_id=1785059583]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(0.32, 0.2, 0.1, 1)
+text = "Net: +0"
+horizontal_alignment = 1
+
+[node name="GoldChart" type="Control" parent="Panel/VBox/TabContainer/Finances" unique_id=1483457719]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("3_qtclu")
+
+[node name="ContinueButton" type="Button" parent="Panel/VBox" unique_id=1846381520]
+custom_minimum_size = Vector2(90, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_xcr7j")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_xcr7j")
+theme_override_styles/hover = SubResource("StyleBoxTexture_xcr7j")
+theme_override_styles/focus = SubResource("StyleBoxTexture_xcr7j")
+theme_override_font_sizes/font_size = 9
+text = "Continue"

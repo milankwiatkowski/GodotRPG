@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/doppelganger_profile.gd" id="1"]
+[ext_resource type="Resource" path="res://data/patients/archetype_villager.tres" id="2"]
+[ext_resource type="Resource" path="res://data/symptoms/symptom_flickering_eyes.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+id = &"villager_mimic"
+name = "Villager Mimic"
+lore_text = "A common shape for a doppelganger to wear - nobody looks twice at a villager."
+disguise_archetype = ExtResource("2")
+tells = [ExtResource("3")]
+threat_level = 2
+hunt_behavior_id = &"default"

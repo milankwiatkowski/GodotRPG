@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/symptom_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"foul_odor"
+display_name = "Foul Odor"
+description = "A wet, rotten smell clings to the patient's skin no washing seems to fix."
+is_red_herring = false
+tags = PackedStringArray("smell")

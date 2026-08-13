@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/disease_data.gd" id="1"]
+[ext_resource type="Resource" path="res://data/symptoms/symptom_rash_spots.tres" id="2"]
+[ext_resource type="Resource" path="res://data/symptoms/symptom_shivering_fits.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+id = &"chill_pox"
+name = "Chill Pox"
+lore_text = "An itchy, shivering fever that spreads fast through crowded wards if left unchecked."
+symptoms = [ExtResource("2"), ExtResource("3")]
+contagious = true
+severity = 2
+cure_recipe_id = &"chill_balm"
+days_to_escalate = 4

@@ -1,0 +1,177 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/Free_UI_Asset_Pack/8/1.png" id="2_bar"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hud"]
+texture = ExtResource("2_bar")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1")
+
+[node name="Background" type="Panel" parent="."]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 188.0
+offset_bottom = 22.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_hud")
+
+[node name="Margin" type="MarginContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 2
+
+[node name="HBox" type="HBoxContainer" parent="Background/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="DayLabel" type="Label" parent="Background/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.32, 0.2, 0.1, 1)
+theme_override_font_sizes/font_size = 8
+text = "Day 0"
+
+[node name="ReputationLabel" type="Label" parent="Background/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.32, 0.2, 0.1, 1)
+theme_override_font_sizes/font_size = 8
+text = "Rep 100"
+
+[node name="GoldLabel" type="Label" parent="Background/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.32, 0.2, 0.1, 1)
+theme_override_font_sizes/font_size = 8
+text = "Gold 0"
+
+[node name="AlertPanel" type="Panel" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 26.0
+offset_right = 150.0
+offset_bottom = 72.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_hud")
+
+[node name="AlertLabel" type="Label" parent="AlertPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = -8.0
+offset_bottom = -4.0
+theme_override_colors/font_color = Color(0.5, 0.08, 0.08, 1)
+theme_override_font_sizes/font_size = 8
+text = "Alert"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="AlertTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="HPPanel" type="Panel" parent="."]
+offset_left = 4.0
+offset_top = 25.0
+offset_right = 80.0
+offset_bottom = 41.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_hud")
+
+[node name="HPLabel" type="Label" parent="HPPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_colors/font_color = Color(0.45, 0.1, 0.1, 1)
+theme_override_font_sizes/font_size = 8
+text = "HP 100/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HuntTimerPanel" type="Panel" parent="."]
+visible = false
+anchors_preset = 9
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -60.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 22.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_hud")
+
+[node name="HuntTimerLabel" type="Label" parent="HuntTimerPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_colors/font_color = Color(0.5, 0.08, 0.08, 1)
+theme_override_font_sizes/font_size = 8
+text = "0:45"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CarryPanel" type="Panel" parent="."]
+visible = false
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -30.0
+offset_right = 150.0
+offset_bottom = -4.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_hud")
+
+[node name="CarryHBox" type="HBoxContainer" parent="CarryPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 3.0
+offset_right = -6.0
+offset_bottom = -3.0
+theme_override_constants/separation = 6
+
+[node name="CarryPortrait" type="TextureRect" parent="CarryPanel/CarryHBox"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+size_flags_vertical = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CarryLabel" type="Label" parent="CarryPanel/CarryHBox"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.32, 0.2, 0.1, 1)
+theme_override_font_sizes/font_size = 8
+text = "Carrying: Name"
+
+[node name="CooldownLabel" type="Label" parent="."]
+visible = false
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -38.0
+offset_right = 100.0
+offset_bottom = -30.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 7
+text = "Pickup ready in 0.6s"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/symptom_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"shivering_fits"
+display_name = "Shivering Fits"
+description = "The patient shakes in sudden bursts, teeth chattering, even indoors by the fire."
+is_red_herring = false
+tags = PackedStringArray("vitals")

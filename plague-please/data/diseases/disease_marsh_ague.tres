@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/disease_data.gd" id="1"]
+[ext_resource type="Resource" path="res://data/symptoms/symptom_pale_skin.tres" id="2"]
+[ext_resource type="Resource" path="res://data/symptoms/symptom_shallow_breathing.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+id = &"marsh_ague"
+name = "Marsh Ague"
+lore_text = "A shivering fever caught from the fens outside the city walls. Common, and curable, if caught early."
+symptoms = [ExtResource("2"), ExtResource("3")]
+contagious = false
+severity = 2
+cure_recipe_id = &"fever_tonic"
+days_to_escalate = 3

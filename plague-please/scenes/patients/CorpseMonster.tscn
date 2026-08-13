@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/entities/corpse_monster.gd" id="1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 12.0
+
+[node name="CorpseMonster" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.6, 0.85, 0.55, 1)
+scale = Vector2(1.0, 1.0)
+offset = Vector2(0, -12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1")
+
+[node name="PromptLabel" type="Label" parent="."]
+offset_left = -30.0
+offset_top = -114.0
+offset_right = 30.0
+offset_bottom = -98.0
+horizontal_alignment = 1
+text = "Fight! (E)"

@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://6wjiy8q1ka8r"]
+
+[ext_resource type="Script" uid="uid://ciuq7umw7blpq" path="res://scripts/entities/patient.gd" id="1"]
+[ext_resource type="SpriteFrames" path="res://resources/sprite_frames/patient_villagerman.tres" id="2_frames"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 12.0
+
+[node name="Patient" type="CharacterBody2D" unique_id=596653627]
+collision_layer = 4
+script = ExtResource("1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1442993885]
+scale = Vector2(1.2, 1.2)
+sprite_frames = ExtResource("2_frames")
+animation = &"idle"
+offset = Vector2(0, -16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=972546832]
+shape = SubResource("CircleShape2D_1")
+
+[node name="PromptLabel" type="Label" parent="." unique_id=1959131170]
+offset_left = -20.0
+offset_top = -114.0
+offset_right = 20.0
+offset_bottom = -98.0
+text = "Talk (E)"
+horizontal_alignment = 1

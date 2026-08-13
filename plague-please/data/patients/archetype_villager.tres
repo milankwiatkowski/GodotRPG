@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/patient_archetype_data.gd" id="1"]
+[ext_resource type="Resource" path="res://data/diseases/disease_marsh_ague.tres" id="2"]
+[ext_resource type="Resource" path="res://data/diseases/disease_chill_pox.tres" id="3"]
+[ext_resource type="Resource" path="res://data/diseases/disease_wailing_cough.tres" id="4"]
+[ext_resource type="Resource" path="res://data/diseases/disease_swamp_rot.tres" id="5"]
+
+[resource]
+script = ExtResource("1")
+id = &"villager"
+name_pool = PackedStringArray("Old Tomas", "Greta the Miller", "Young Pip", "Widow Marlow", "Corwin the Smith", "Little Fen")
+possible_diseases = [ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5")]
+doppelganger_chance = 0.4
+flavor_dialogue = PackedStringArray("Me knees been achin' somethin' fierce, healer.")

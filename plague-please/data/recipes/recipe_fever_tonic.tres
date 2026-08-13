@@ -1,0 +1,27 @@
+[gd_resource type="Resource" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/potion_recipe_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/recipe_ingredient_slot.gd" id="2"]
+[ext_resource type="Resource" path="res://data/ingredients/ingredient_willowbark.tres" id="3"]
+[ext_resource type="Resource" path="res://data/ingredients/ingredient_marshroot.tres" id="4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/items/potion_purple.png" id="5"]
+
+[sub_resource type="Resource" id="SubResource_1"]
+script = ExtResource("2")
+ingredient = ExtResource("3")
+quantity = 2
+
+[sub_resource type="Resource" id="SubResource_2"]
+script = ExtResource("2")
+ingredient = ExtResource("4")
+quantity = 1
+
+[resource]
+script = ExtResource("1")
+id = &"fever_tonic"
+result_name = "Fever Tonic"
+icon = ExtResource("5")
+ingredients = [SubResource("SubResource_1"), SubResource("SubResource_2")]
+brew_time_minutes = 3
+cures_disease_id = &"marsh_ague"
+side_effects_on_misuse = "Brewed with the wrong dose, it induces drowsiness instead of breaking the fever."

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/ingredient_data.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/items/flask_orange.png" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = &"gingerroot"
+name = "Gingerroot"
+icon = ExtResource("2")
+properties = PackedStringArray("warming", "soothing")
+rarity = 1
+cost = 4
