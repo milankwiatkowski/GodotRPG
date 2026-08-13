@@ -45,6 +45,13 @@ const INTAKE_CORRIDOR_GAP := Vector2(0, -184)
 ## leg(s) before it) - see Patient.dismiss()'s path parameter.
 const INTAKE_TO_TREATMENT_PATH: Array[Vector2] = [INTAKE_CORRIDOR_GAP]
 
+## Matches Patient.zone_name for whichever patients this panel should
+## handle - both IntakePanel and TreatmentPanel exist simultaneously in
+## the merged Hospital scene now, so Player._try_interact() uses this to
+## pick the right one instead of grabbing whichever's first in the
+## "dialogue_ui" group.
+@export var zone_name: String = "IntakeRoom"
+
 @onready var panel: Control = $Panel
 @onready var name_label: Label = $Panel/VBox/NameLabel
 @onready var body_label: Label = $Panel/VBox/BodyScroll/BodyLabel

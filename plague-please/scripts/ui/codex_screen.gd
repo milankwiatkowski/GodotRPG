@@ -26,7 +26,7 @@ const UNKNOWN_COLOR := Color(0.55, 0.5, 0.46, 1)
 func _ready() -> void:
 	layer = 30 # above room panels (20)/HUD - this is a full pause overlay
 	process_mode = Node.PROCESS_MODE_ALWAYS # keep taking input while get_tree().paused
-	panel.visible = false
+	visible = false # hides both Background (the dim backdrop) and Panel in one shot - CanvasLayer.visible cascades to everything under it
 	close_button.pressed.connect(close)
 	add_to_group("modal_ui")
 
@@ -54,21 +54,21 @@ func _other_modal_open() -> bool:
 
 
 func is_open() -> bool:
-	return panel.visible
+	return visible
 
 
 func open() -> void:
 	_rebuild_diseases()
 	_rebuild_dopplegangers()
-	panel.visible = true
+	visible = true
 	get_tree().paused = true
 	SFX.play(&"open_dialogue")
 
 
 func close() -> void:
-	if not panel.visible:
+	if not visible:
 		return
-	panel.visible = false
+	visible = false
 	get_tree().paused = false
 	SFX.play(&"cancel")
 

@@ -83,9 +83,9 @@ func _try_interact() -> void:
 
 	var patient := _find_nearest_waiting_patient(INTERACT_RANGE)
 	if patient:
-		var uis := get_tree().get_nodes_in_group("dialogue_ui")
-		if not uis.is_empty() and uis[0].has_method("open_with_patient"):
-			uis[0].open_with_patient(patient)
+		var ui := _find_dialogue_ui_for_zone(patient.zone_name)
+		if ui:
+			ui.open_with_patient(patient)
 		return
 
 	var corpse := _find_nearest_in_group("corpses", INTERACT_RANGE)
@@ -96,6 +96,18 @@ func _try_interact() -> void:
 	var station := _find_nearest_in_group("stations", INTERACT_RANGE)
 	if station and station.has_method("interact"):
 		station.interact()
+
+
+## Both IntakePanel and TreatmentPanel are in the "dialogue_ui" group at
+## the same time now that they're one merged scene - pick the one whose
+## own zone_name matches the patient's, instead of always grabbing
+## whichever happens to be first in the group (the old assumption, back
+## when a scene only ever had one dialogue panel in it).
+func _find_dialogue_ui_for_zone(zone: String) -> Node:
+	for ui in get_tree().get_nodes_in_group("dialogue_ui"):
+		if ui.has_method("open_with_patient") and ui.get("zone_name") == zone:
+			return ui
+	return null
 
 
 func _find_nearest_waiting_patient(max_range: float) -> Patient:

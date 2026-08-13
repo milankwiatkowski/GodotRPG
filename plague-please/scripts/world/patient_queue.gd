@@ -121,6 +121,7 @@ func _next_unslotted_case(queue: Array) -> CaseFile:
 
 func _spawn_into_slot(index: int, case: CaseFile, already_waiting: bool) -> void:
 	var patient: Patient = PATIENT_SCENE.instantiate()
+	patient.zone_name = zone_name
 	get_parent().add_child(patient)
 	var slot_global := to_global(slot_positions[index])
 	if already_waiting:

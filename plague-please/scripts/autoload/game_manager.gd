@@ -20,6 +20,11 @@ var pending_spawn_position: Vector2 = Vector2.INF
 var last_day_number: int = 0
 var last_day_summary: Dictionary = {}
 
+## Set the instant a run ends (see _on_game_over()) - "reputation"/
+## "suspicion"/"hp", read by GameOverScreen._ready() the same way
+## DayReportScreen reads last_day_summary.
+var game_over_reason: String = ""
+
 func _ready() -> void:
 	EventBus.game_over.connect(_on_game_over)
 	EventBus.day_ended.connect(_on_day_ended)
@@ -34,6 +39,8 @@ func start_new_run() -> void:
 	TransitionScreen.change_scene("res://scenes/hospital/Hospital.tscn")
 
 func _on_day_ended(day_number: int, summary: Dictionary) -> void:
+	if state == State.GAME_OVER:
+		return # _on_game_over() already ended the run and switched scenes - don't show a day report on top of that
 	state = State.DAY_REPORT
 	last_day_number = day_number
 	last_day_summary = summary
@@ -49,7 +56,14 @@ func continue_after_day_report() -> void:
 func reputation_or_suspicion_ended_the_run() -> bool:
 	return state == State.GAME_OVER
 
+## Fires the instant reputation/suspicion/player_hp crosses the line (see
+## RunManager._check_game_over()), from wherever the player happens to be
+## - Hospital mid-shift, or already looking at a Day Report. Used to just
+## set `state` and print to the console with a "TODO: show a game-over
+## screen" - DayReportScreen's Continue button would then silently no-op
+## once state was GAME_OVER, with zero feedback, reading exactly like a
+## broken button rather than "the run is over." Now it actually shows one.
 func _on_game_over(reason: String) -> void:
 	state = State.GAME_OVER
-	print("Game over: ", reason)
-	# TODO: show a game-over screen with the reason ("reputation" / "suspicion").
+	game_over_reason = reason
+	TransitionScreen.change_scene("res://scenes/ui/GameOverScreen.tscn")

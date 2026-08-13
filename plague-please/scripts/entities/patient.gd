@@ -57,6 +57,14 @@ static func pick_random_portrait() -> String:
 ## The generated case this patient represents. Set by setup().
 var case: CaseFile
 
+## Which PatientQueue zone spawned this patient ("IntakeRoom"/
+## "TreatmentRoom" - set by PatientQueue._spawn_into_slot() right after
+## instancing). Both IntakePanel and TreatmentPanel are in the "dialogue_ui"
+## group simultaneously now that they're all one merged scene, so
+## Player._try_interact() needs this to pick the right one instead of
+## always grabbing whichever panel happens to be first in the group.
+var zone_name: String = ""
+
 var _state: State = State.WALKING_IN
 var _target: Vector2
 var _entry_point: Vector2

@@ -85,12 +85,17 @@ of `TreatmentRoom` once unmasked. `AlchemyLab` and `SupplyRoom` each have a
 way. See "Patient flow: Intake → Treatment" and "Room feature systems"
 below for the full detail.
 
-A day ends when the patient queue empties; `RunManager` emits
-`EventBus.day_ended` with a summary, and `GameManager` reacts (currently a
-TODO stub - build the day-report screen there). Reputation hitting 0 or
-suspicion hitting 100 ends the run via `EventBus.game_over`. Note: neither
-`IntakeRoom` nor `TreatmentRoom`'s `PatientQueue` is **wired to this day
-queue** yet - see "Not yet built".
+A day ends when `GameClock` crosses `HOURS_PER_DAY` hours (see "Game clock
+& Day Report" below) - `RunManager.end_current_day()` freezes a summary and
+emits `EventBus.day_ended`; `GameManager` shows `DayReportScreen`, and its
+Continue button starts the next day back in the merged Hospital scene.
+Reputation hitting 0, suspicion hitting 100, or player HP hitting 0 ends
+the run immediately instead, from wherever the player happens to be
+(mid-shift or already on a Day Report) - `GameManager._on_game_over()`
+transitions straight to `GameOverScreen` (reason-specific message, final
+stats, Return to Main Menu). `_on_day_ended()` no-ops if the run already
+ended this way, so a day boundary landing right after can't paper over the
+game-over screen with a day report.
 
 ## Movement & the merged map
 
@@ -360,7 +365,7 @@ independent of Player's code:
 | Group | Who's in it | What it's for |
 |---|---|---|
 | `"modal_ui"` | Every panel (`IntakePanel`, `TreatmentPanel`, `BrewPanel`, `ShopPanel`, `CodexScreen`) | Player freezes movement while any node in this group reports `is_open() == true`. `CodexScreen` additionally pauses the whole tree (`get_tree().paused`) while open, so this is belt-and-suspenders for it specifically. |
-| `"dialogue_ui"` | The patient-facing panels (`IntakePanel`, `TreatmentPanel`) | Player calls `open_with_patient(patient)` on whichever one is in the current scene when interacting with a waiting patient. Only one exists per room. |
+| `"dialogue_ui"` | The patient-facing panels (`IntakePanel`, `TreatmentPanel`) | Player calls `open_with_patient(patient)` on whichever one matches the patient's own `zone_name` ("IntakeRoom"/"TreatmentRoom" - set by `PatientQueue._spawn_into_slot()`, matched against `IntakePanel.zone_name`/`TreatmentPanel.zone_name`). Both panels exist simultaneously in the merged Hospital scene now, unlike the old per-room scenes where only one was ever present - matching by zone (not "whichever's first in the group") is what stops a Treatment Ward patient from opening the Admit/Reject panel. |
 | `"npcs"` | `Patient` while `WAITING` | `Player._find_nearest_waiting_patient()` - picks the *nearest* of however many are currently waiting. |
 | `"doppelganger_monster"` | `DoppelgangerMonster` | `Player._try_interact()` catches it directly (`monster.catch()`), second interact priority. |
 | `"corpse_monster"` | `CorpseMonster` (an undisposed corpse gone bad - see "Corpses..." below) | `Player._try_interact()` catches it directly, *highest* interact priority - it's actively chasing you, more urgent than a wandering doppelganger. |
@@ -657,7 +662,19 @@ philosophy as `HuntManager`'s countdown:
   labels plus `GoldChart`, a `Control` with a hand-rolled `_draw()` line
   chart - no plotting library - plotting `gold_history` for the day).
   Continue calls `GameManager.continue_after_day_report()`, back to the
-  Hospital hub.
+  Hospital hub. That call is a no-op if the run already ended (see below)
+  - previously it would just silently do nothing with zero feedback,
+    indistinguishable from a broken button.
+- **`GameOverScreen`** (`scenes/ui/GameOverScreen.tscn` +
+  `game_over_screen.gd`) - reputation hitting 0, suspicion hitting 100, or
+  player HP hitting 0 (`RunManager._check_game_over()` → `EventBus.
+  game_over` → `GameManager._on_game_over()`) transitions here immediately,
+  from wherever the player was (mid-shift in Hospital, or already looking
+  at a Day Report) - `state = GAME_OVER` is set the same instant. Shows a
+  reason-specific message (`GameOverScreen.REASON_TEXT`), the day reached,
+  and final reputation/suspicion/gold; the only way out is Return to Main
+  Menu, a fresh `RunManager.start_new_run()` - no Continue, the run is
+  genuinely over.
 - `TransitionScreen.change_scene()` used to silently drop a request that
   arrived while another transition was still fading - harmless normally,
   but a day boundary landing the same instant as a room-door transition
@@ -706,7 +723,6 @@ simplified:
   `ColorRect`s) and dynamically-built shop/brew row UI (plain Godot
   buttons, no `StyleBoxTexture` skin) - see "Art & assets in use" for why
   the door/prop art specifically wasn't pulled from the tileset yet.
-- Day-report / game-over UI (`GameManager._on_day_ended` /
-  `_on_game_over` TODOs). Suspicion isn't shown in the HUD yet either.
+- Suspicion isn't shown in the HUD yet (reputation/gold/HP are).
 - Save/meta-progression between runs.
 - Dialogue/story integration - see `dialogues/README.md`.

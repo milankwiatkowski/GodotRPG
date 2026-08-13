@@ -1,28 +1,19 @@
-[gd_scene format=4]
+[gd_scene format=4 uid="uid://cxa37nmqydxle"]
 
-[ext_resource type="Script" path="res://scripts/world/hospital_map.gd" id="1_hu2tq"]
+[ext_resource type="Script" uid="uid://chusyxskol3mv" path="res://scripts/world/hospital_map.gd" id="1_hu2tq"]
 [ext_resource type="TileSet" path="res://assets/tilesets/hospital_tileset.tres" id="2_junwo"]
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="3_ro534"]
-[ext_resource type="Script" path="res://scripts/player/player.gd" id="4_to54n"]
 [ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="5_rpyr7"]
-[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="6_2gyu1"]
 [ext_resource type="PackedScene" path="res://scenes/ui/IntakePanel.tscn" id="7_bgwfq"]
-[ext_resource type="Script" path="res://scripts/ui/intake_panel.gd" id="8_ptuvq"]
-[ext_resource type="Texture2D" path="res://assets/Free_UI_Asset_Pack/6/1.png" id="9_k3ngq"]
-[ext_resource type="Texture2D" path="res://assets/Free_UI_Asset_Pack/1/1.png" id="10_og54c"]
-[ext_resource type="Texture2D" path="res://assets/Free_UI_Asset_Pack/1/2.png" id="11_pdrtk"]
+[ext_resource type="Texture2D" uid="uid://ylqkoyg6kxf" path="res://assets/Free_UI_Asset_Pack/6/1.png" id="9_k3ngq"]
 [ext_resource type="PackedScene" path="res://scenes/ui/TreatmentPanel.tscn" id="12_hdgqg"]
-[ext_resource type="Script" path="res://scripts/ui/treatment_panel.gd" id="13_lvbm2"]
 [ext_resource type="PackedScene" path="res://scenes/ui/BrewPanel.tscn" id="14_jbs57"]
-[ext_resource type="Script" path="res://scripts/ui/brew_panel.gd" id="15_e67ag"]
 [ext_resource type="PackedScene" path="res://scenes/ui/ShopPanel.tscn" id="16_n157e"]
-[ext_resource type="Script" path="res://scripts/ui/shop_panel.gd" id="17_ywjbp"]
-[ext_resource type="Script" path="res://scripts/world/patient_queue.gd" id="18_8idss"]
-[ext_resource type="Script" path="res://scripts/world/brewing_station.gd" id="19_d224e"]
+[ext_resource type="Script" uid="uid://ncu07yvoxn7x" path="res://scripts/world/patient_queue.gd" id="18_8idss"]
+[ext_resource type="Script" uid="uid://bbbqge2hprahl" path="res://scripts/world/brewing_station.gd" id="19_d224e"]
 [ext_resource type="PackedScene" path="res://scenes/ui/CodexScreen.tscn" id="19_ro534"]
-[ext_resource type="Script" path="res://scripts/ui/codex_screen.gd" id="20_to54n"]
-[ext_resource type="Script" path="res://scripts/world/supply_station.gd" id="20_uotwe"]
-[ext_resource type="Script" path="res://scripts/world/disposal_station.gd" id="21_mep6j"]
+[ext_resource type="Script" uid="uid://wh6gbap57cnt" path="res://scripts/world/supply_station.gd" id="20_uotwe"]
+[ext_resource type="Script" uid="uid://xeujr8prhovs" path="res://scripts/world/disposal_station.gd" id="21_mep6j"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_panel"]
 texture = ExtResource("9_k3ngq")
@@ -30,20 +21,6 @@ texture_margin_left = 12.0
 texture_margin_top = 12.0
 texture_margin_right = 12.0
 texture_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn"]
-texture = ExtResource("10_og54c")
-texture_margin_left = 5.0
-texture_margin_top = 5.0
-texture_margin_right = 5.0
-texture_margin_bottom = 5.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn_pressed"]
-texture = ExtResource("11_pdrtk")
-texture_margin_left = 5.0
-texture_margin_top = 5.0
-texture_margin_right = 5.0
-texture_margin_bottom = 5.0
 
 [node name="Hospital" type="Node2D" unique_id=1152752666]
 script = ExtResource("1_hu2tq")
@@ -118,25 +95,18 @@ offset_bottom = 331.0
 text = "Morgue"
 horizontal_alignment = 1
 
-[node name="Player" type="CharacterBody2D" parent="." unique_id=749819665 instance=ExtResource("3_ro534")]
+[node name="Player" parent="." unique_id=749819665 instance=ExtResource("3_ro534")]
 position = Vector2(0, -8)
-collision_layer = 2
-script = ExtResource("4_to54n")
 
-[node name="HUD" type="CanvasLayer" parent="." unique_id=528608520 instance=ExtResource("5_rpyr7")]
-script = ExtResource("6_2gyu1")
+[node name="HUD" parent="." unique_id=528608520 instance=ExtResource("5_rpyr7")]
 
-[node name="IntakePanel" type="CanvasLayer" parent="." unique_id=1942697543 instance=ExtResource("7_bgwfq")]
-script = ExtResource("8_ptuvq")
+[node name="IntakePanel" parent="." unique_id=1942697543 instance=ExtResource("7_bgwfq")]
 
-[node name="TreatmentPanel" type="CanvasLayer" parent="." unique_id=1143001348 instance=ExtResource("12_hdgqg")]
-script = ExtResource("13_lvbm2")
+[node name="TreatmentPanel" parent="." unique_id=1143001348 instance=ExtResource("12_hdgqg")]
 
-[node name="BrewPanel" type="CanvasLayer" parent="." unique_id=1882987983 instance=ExtResource("14_jbs57")]
-script = ExtResource("15_e67ag")
+[node name="BrewPanel" parent="." unique_id=1882987983 instance=ExtResource("14_jbs57")]
 
-[node name="ShopPanel" type="CanvasLayer" parent="." unique_id=1287891477 instance=ExtResource("16_n157e")]
-script = ExtResource("17_ywjbp")
+[node name="ShopPanel" parent="." unique_id=1287891477 instance=ExtResource("16_n157e")]
 
 [node name="IntakeQueue" type="Node2D" parent="." unique_id=1134001737]
 script = ExtResource("18_8idss")
@@ -196,104 +166,4 @@ theme_override_font_sizes/font_size = 7
 text = "Dispose (E)"
 horizontal_alignment = 1
 
-[node name="CodexScreen" type="CanvasLayer" parent="." unique_id=1239724732 instance=ExtResource("19_ro534")]
-script = ExtResource("20_to54n")
-
-[node name="Background" type="ColorRect" parent="CodexScreen" unique_id=1205376697]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-color = Color(0.06, 0.05, 0.05, 0.6)
-
-[node name="Panel" type="Panel" parent="CodexScreen" unique_id=486473327]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -140.0
-offset_top = -95.0
-offset_right = 140.0
-offset_bottom = 95.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_panel")
-
-[node name="VBox" type="VBoxContainer" parent="CodexScreen/Panel" unique_id=1616378886]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 8.0
-offset_right = -10.0
-offset_bottom = -8.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 6
-
-[node name="TitleLabel" type="Label" parent="CodexScreen/Panel/VBox" unique_id=1855818081]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-theme_override_colors/font_color = Color(0.32, 0.2, 0.1, 1)
-text = "Codex"
-horizontal_alignment = 1
-
-[node name="SubtitleLabel" type="Label" parent="CodexScreen/Panel/VBox" unique_id=777403253]
-layout_mode = 2
-theme_override_font_sizes/font_size = 7
-theme_override_colors/font_color = Color(0.5, 0.42, 0.34, 1)
-text = "Only what you've actually learned this run is written down."
-horizontal_alignment = 1
-autowrap_mode = 3
-
-[node name="TabContainer" type="TabContainer" parent="CodexScreen/Panel/VBox" unique_id=1880120025]
-custom_minimum_size = Vector2(0, 130)
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/font_selected_color = Color(0.32, 0.2, 0.1, 1)
-theme_override_colors/font_unselected_color = Color(0.5, 0.42, 0.34, 1)
-theme_override_font_sizes/font_size = 8
-current_tab = 0
-
-[node name="Diseases" type="MarginContainer" parent="CodexScreen/Panel/VBox/TabContainer" unique_id=496275388]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 0
-
-[node name="DiseaseScroll" type="ScrollContainer" parent="CodexScreen/Panel/VBox/TabContainer/Diseases" unique_id=1514065637]
-layout_mode = 2
-horizontal_scroll_mode = 0
-
-[node name="DiseaseList" type="VBoxContainer" parent="CodexScreen/Panel/VBox/TabContainer/Diseases/DiseaseScroll" unique_id=530856438]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 6
-
-[node name="Dopplegangers" type="MarginContainer" parent="CodexScreen/Panel/VBox/TabContainer" unique_id=655572670]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 1
-
-[node name="DoppelScroll" type="ScrollContainer" parent="CodexScreen/Panel/VBox/TabContainer/Dopplegangers" unique_id=91308462]
-layout_mode = 2
-horizontal_scroll_mode = 0
-
-[node name="DoppelList" type="VBoxContainer" parent="CodexScreen/Panel/VBox/TabContainer/Dopplegangers/DoppelScroll" unique_id=57503160]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 6
-
-[node name="CloseButton" type="Button" parent="CodexScreen/Panel/VBox" unique_id=186150051]
-custom_minimum_size = Vector2(70, 18)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_btn")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_btn_pressed")
-theme_override_styles/hover = SubResource("StyleBoxTexture_btn")
-theme_override_styles/focus = SubResource("StyleBoxTexture_btn")
-theme_override_font_sizes/font_size = 8
-text = "Close"
+[node name="CodexScreen" parent="." unique_id=1239724732 instance=ExtResource("19_ro534")]

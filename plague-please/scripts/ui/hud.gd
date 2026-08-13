@@ -40,7 +40,7 @@ func _ready() -> void:
 	alert_timer.timeout.connect(func(): alert_panel.visible = false)
 	_refresh()
 	if HuntManager.is_active():
-		_show_alert("A patient wasn't human! It's loose in Treatment Ward, killing patients - go catch it!")
+		_show_alert("It's loose in Treatment Ward - go catch it!")
 
 func _process(_delta: float) -> void:
 	clock_label.text = GameClock.format_clock()
@@ -59,10 +59,10 @@ func _on_player_hp_changed(new_value: int, _delta: int) -> void:
 
 func _on_hunt_started(_case: CaseFile) -> void:
 	alert_timer.stop()
-	_show_alert("A patient wasn't human! It's loose in Treatment Ward, killing patients - go catch it!")
+	_show_alert("It's loose in Treatment Ward - go catch it!")
 
 func _on_hunt_resolved(_case: CaseFile, success: bool) -> void:
-	var msg := "Caught it! The doppelganger is dealt with." if success else "It got away. Suspicion is rising..."
+	var msg := "Caught it!" if success else "It got away..."
 	_show_alert(msg)
 	alert_timer.start()
 

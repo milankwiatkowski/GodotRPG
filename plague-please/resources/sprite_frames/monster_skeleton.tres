@@ -1,8 +1,8 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://dr4h3hvb5cyef"]
 
-[ext_resource type="Texture2D" path="res://assets/Tiny RPG Character Asset Pack 01 v2.0 -Full 22 Characters/Tiny RPG Character Asset Pack 01 v2.0 -Full 22 Characters/Characters(100x100 split)/Skeleton/Skeleton/Skeleton_Attack01.png" id="1_awl2a"]
-[ext_resource type="Texture2D" path="res://assets/Tiny RPG Character Asset Pack 01 v2.0 -Full 22 Characters/Tiny RPG Character Asset Pack 01 v2.0 -Full 22 Characters/Characters(100x100 split)/Skeleton/Skeleton/Skeleton_Idle.png" id="2_1cix1"]
-[ext_resource type="Texture2D" path="res://assets/Tiny RPG Character Asset Pack 01 v2.0 -Full 22 Characters/Tiny RPG Character Asset Pack 01 v2.0 -Full 22 Characters/Characters(100x100 split)/Skeleton/Skeleton/Skeleton_Walk.png" id="3_2asnc"]
+[ext_resource type="Texture2D" uid="uid://jokugiqhgbm7" path="res://assets/Tiny RPG Character Asset Pack 01 v2.0 -Full 22 Characters/Tiny RPG Character Asset Pack 01 v2.0 -Full 22 Characters/Characters(100x100 split)/Skeleton/Skeleton/Skeleton_Attack01.png" id="1_awl2a"]
+[ext_resource type="Texture2D" uid="uid://cgph6idocu2yw" path="res://assets/Tiny RPG Character Asset Pack 01 v2.0 -Full 22 Characters/Tiny RPG Character Asset Pack 01 v2.0 -Full 22 Characters/Characters(100x100 split)/Skeleton/Skeleton/Skeleton_Idle.png" id="2_1cix1"]
+[ext_resource type="Texture2D" uid="uid://ba45cvj0lmxmi" path="res://assets/Tiny RPG Character Asset Pack 01 v2.0 -Full 22 Characters/Tiny RPG Character Asset Pack 01 v2.0 -Full 22 Characters/Characters(100x100 split)/Skeleton/Skeleton/Skeleton_Walk.png" id="3_2asnc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_36673"]
 atlas = ExtResource("1_awl2a")

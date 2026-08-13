@@ -16,6 +16,11 @@ extends CanvasLayer
 ## stays open; Close/Escape backs out and leaves them waiting until the
 ## player comes back with the cure.
 
+## Matches Patient.zone_name for whichever patients this panel should
+## handle - see IntakePanel.zone_name for why this is needed now that
+## both panels exist simultaneously in the merged Hospital scene.
+@export var zone_name: String = "TreatmentRoom"
+
 @onready var panel: Control = $Panel
 @onready var name_label: Label = $Panel/VBox/NameLabel
 @onready var body_label: Label = $Panel/VBox/BodyScroll/BodyLabel
